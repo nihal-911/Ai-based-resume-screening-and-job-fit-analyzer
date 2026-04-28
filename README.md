@@ -10,9 +10,7 @@
 | Name | Role |
 |------|------|
 | Nihal S | Team Lead & Full-Stack Developer |
-| Priya R | ML Engineer |
-| Arjun K | Backend Developer |
-| Sneha M | UI Designer |
+| Praneeth | ML Engineer & Backend Developer |
 
 ---
 
