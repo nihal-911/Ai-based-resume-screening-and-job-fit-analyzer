@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | AI Resume Analyzer — GRIET DS</title>
+  <meta name="description" content="Admin analytics dashboard for AI Resume Screening system — GRIET Department of Data Science." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+  <div id="particles" class="particles-bg" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-text">ResumeAI</span>
+        <span class="brand-badge">GRIET DS</span>
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link" id="nav-home">Home</a>
+        <a href="/dashboard" class="nav-link active" id="nav-dashboard">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-wrapper">
+
+    <!-- HEADER -->
+    <div class="dash-header animate-fadeup">
+      <div>
+        <h1 class="dash-title">📊 Analytics Dashboard</h1>
+        <p class="dash-sub">Real-time overview of all resume analyses performed</p>
+      </div>
+      <button class="seed-btn" id="seedBtn">⚡ Load Demo Data</button>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stats-grid animate-fadeup delay-1">
+      <div class="stat-card purple-glow">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Total Analyses</div>
+        </div>
+      </div>
+      <div class="stat-card green-glow">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statApproved">0</div>
+          <div class="stat-label">Approved</div>
+        </div>
+      </div>
+      <div class="stat-card red-glow">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statNeeds">0</div>
+          <div class="stat-label">Needs Improvement</div>
+        </div>
+      </div>
+      <div class="stat-card blue-glow">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statCGPA">—</div>
+          <div class="stat-label">Avg CGPA</div>
+        </div>
+      </div>
+      <div class="stat-card orange-glow">
+        <div class="stat-icon">📈</div>
+        <div class="stat-info">
+          <div class="stat-value" id="statApprovalRate">—</div>
+          <div class="stat-label">Approval Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW 1 -->
+    <div class="dash-charts-row animate-fadeup delay-2">
+      <div class="dash-chart-card">
+        <h3 class="dash-chart-title">Job Fit Distribution</h3>
+        <div class="dash-chart-wrap">
+          <canvas id="fitDoughnut" aria-label="Job Fit Doughnut Chart"></canvas>
+        </div>
+      </div>
+      <div class="dash-chart-card wide">
+        <h3 class="dash-chart-title">Top Recommended Roles</h3>
+        <div class="dash-chart-wrap">
+          <canvas id="rolesBar" aria-label="Top Roles Bar Chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS ROW 2 -->
+    <div class="dash-charts-row animate-fadeup delay-3">
+      <div class="dash-chart-card wide">
+        <h3 class="dash-chart-title">Preferred Domains Breakdown</h3>
+        <div class="dash-chart-wrap">
+          <canvas id="domainsBar" aria-label="Domains Bar Chart"></canvas>
+        </div>
+      </div>
+      <div class="dash-chart-card">
+        <h3 class="dash-chart-title">🔬 WEKA Model Accuracy</h3>
+        <div class="weka-list">
+          <div class="weka-row">
+            <span class="weka-lbl">🥇 Naive Bayes</span>
+            <div class="weka-prog-track"><div class="weka-prog-fill best" style="width:87.3%"></div></div>
+            <span class="weka-pct">87.3%</span>
+          </div>
+          <div class="weka-row">
+            <span class="weka-lbl">🥈 Random Forest</span>
+            <div class="weka-prog-track"><div class="weka-prog-fill silver" style="width:85.1%"></div></div>
+            <span class="weka-pct">85.1%</span>
+          </div>
+          <div class="weka-row">
+            <span class="weka-lbl">🥉 J48 Tree</span>
+            <div class="weka-prog-track"><div class="weka-prog-fill bronze" style="width:83.6%"></div></div>
+            <span class="weka-pct">83.6%</span>
+          </div>
+          <div class="weka-row">
+            <span class="weka-lbl">📊 ZeroR</span>
+            <div class="weka-prog-track"><div class="weka-prog-fill muted" style="width:58.4%"></div></div>
+            <span class="weka-pct">58.4%</span>
+          </div>
+        </div>
+        <p class="weka-cv-note">10-Fold Cross Validation · dataset.arff</p>
+      </div>
+    </div>
+
+    <!-- RECENT SUBMISSIONS TABLE -->
+    <div class="dash-table-card animate-fadeup delay-4">
+      <h3 class="dash-chart-title">🕒 Recent Submissions</h3>
+      <div class="table-scroll">
+        <table class="dash-table" id="submissionsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Time</th>
+              <th>CGPA</th>
+              <th>Skills</th>
+              <th>Job Fit</th>
+              <th>Recommended Role</th>
+            </tr>
+          </thead>
+          <tbody id="submissionsBody">
+            <tr><td colspan="6" class="empty-row">No submissions yet — use the form or load demo data.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>AI-Based Resume Screening &amp; Job Fit Analyzer &nbsp;·&nbsp; Department of Data Science &nbsp;·&nbsp; GRIET Hyderabad &nbsp;·&nbsp; 2025-26</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

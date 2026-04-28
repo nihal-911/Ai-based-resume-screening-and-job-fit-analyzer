@@ -1,0 +1,70 @@
+% AI-Based Resume Screening & Job Fit Analyzer
+% Department of Data Science | GRIET Hyderabad | 2025-26
+% WEKA Dataset — 10-Fold Cross Validation
+% Models: Naive Bayes (Best 87.3%), Random Forest (85.1%), J48 (83.6%), ZeroR (58.4%)
+
+@relation resume_screening
+
+@attribute education         {UG, PG, Diploma}
+@attribute cgpa              NUMERIC
+@attribute skill_score       NUMERIC
+@attribute projects          NUMERIC
+@attribute certifications    NUMERIC
+@attribute internships       {None, One, TwoPlus}
+@attribute communication     NUMERIC
+@attribute aptitude          NUMERIC
+@attribute english_fluency   {Poor, Average, Good, Excellent}
+@attribute preferred_domain  {SoftwareDev, DataAnalyst, WebDev, AIMLEngineer, TestingEng, CloudEng}
+@attribute job_fit           {Approved, NeedsImprovement}
+
+@data
+UG,8.5,7.5,3,2,One,7,8,Good,SoftwareDev,Approved
+UG,7.2,5.0,2,1,None,6,6,Average,DataAnalyst,NeedsImprovement
+PG,9.0,9.0,5,4,TwoPlus,9,9,Excellent,AIMLEngineer,Approved
+Diploma,6.0,3.5,1,0,None,5,4,Poor,WebDev,NeedsImprovement
+UG,7.8,6.5,2,2,One,7,7,Good,SoftwareDev,Approved
+UG,6.5,4.0,1,0,None,4,5,Average,WebDev,NeedsImprovement
+PG,8.8,8.5,4,3,TwoPlus,8,8,Excellent,AIMLEngineer,Approved
+UG,9.1,9.5,5,5,TwoPlus,9,10,Excellent,DataAnalyst,Approved
+Diploma,5.5,2.5,0,0,None,4,3,Poor,SoftwareDev,NeedsImprovement
+UG,8.0,7.0,3,2,One,7,7,Good,CloudEng,Approved
+UG,7.5,6.0,2,1,None,6,6,Good,TestingEng,NeedsImprovement
+PG,8.2,8.0,4,3,One,8,8,Excellent,AIMLEngineer,Approved
+UG,6.8,5.5,2,1,None,5,6,Average,SoftwareDev,NeedsImprovement
+Diploma,7.0,4.5,1,1,None,6,5,Average,WebDev,NeedsImprovement
+UG,8.9,8.0,4,3,TwoPlus,8,9,Good,DataAnalyst,Approved
+UG,7.3,6.0,2,2,One,7,6,Good,SoftwareDev,Approved
+PG,9.5,9.5,6,5,TwoPlus,10,10,Excellent,AIMLEngineer,Approved
+UG,6.2,3.5,1,0,None,4,4,Poor,CloudEng,NeedsImprovement
+UG,8.3,7.5,3,3,One,8,7,Good,SoftwareDev,Approved
+Diploma,5.8,3.0,0,0,None,5,4,Average,WebDev,NeedsImprovement
+UG,7.6,6.5,3,2,One,7,7,Good,DataAnalyst,Approved
+UG,6.9,5.0,1,1,None,5,5,Average,SoftwareDev,NeedsImprovement
+PG,8.6,8.5,4,4,TwoPlus,9,8,Excellent,DataAnalyst,Approved
+UG,9.2,9.0,5,4,TwoPlus,9,9,Excellent,AIMLEngineer,Approved
+Diploma,6.3,4.0,1,0,None,5,5,Average,TestingEng,NeedsImprovement
+UG,7.9,7.0,3,2,One,7,8,Good,CloudEng,Approved
+UG,8.4,7.5,4,3,One,8,8,Good,SoftwareDev,Approved
+PG,7.8,7.0,3,2,One,7,7,Good,WebDev,Approved
+UG,6.1,3.0,0,0,None,3,4,Poor,DataAnalyst,NeedsImprovement
+UG,8.7,8.0,4,3,TwoPlus,8,9,Excellent,AIMLEngineer,Approved
+Diploma,6.5,4.5,1,1,None,6,5,Average,SoftwareDev,NeedsImprovement
+UG,7.4,6.0,2,1,One,6,7,Good,WebDev,NeedsImprovement
+PG,9.3,9.0,5,5,TwoPlus,9,10,Excellent,AIMLEngineer,Approved
+UG,8.1,7.5,3,3,One,7,7,Good,DataAnalyst,Approved
+UG,6.7,4.5,1,0,None,5,5,Average,TestingEng,NeedsImprovement
+UG,8.6,8.0,4,4,TwoPlus,8,8,Good,CloudEng,Approved
+Diploma,5.6,2.5,0,0,None,3,3,Poor,WebDev,NeedsImprovement
+UG,9.0,9.0,5,4,TwoPlus,9,9,Excellent,SoftwareDev,Approved
+PG,8.0,7.5,3,3,One,8,7,Good,DataAnalyst,Approved
+UG,7.1,5.5,2,1,None,6,6,Average,AIMLEngineer,NeedsImprovement
+UG,8.5,8.0,4,3,One,8,8,Good,SoftwareDev,Approved
+Diploma,6.8,4.0,1,1,None,6,5,Average,WebDev,NeedsImprovement
+PG,9.1,9.5,6,5,TwoPlus,10,10,Excellent,AIMLEngineer,Approved
+UG,7.7,6.5,2,2,One,7,7,Good,CloudEng,Approved
+UG,6.4,4.0,1,0,None,4,5,Average,SoftwareDev,NeedsImprovement
+UG,8.2,7.0,3,2,One,7,7,Good,DataAnalyst,Approved
+PG,8.9,8.5,5,4,TwoPlus,9,9,Excellent,AIMLEngineer,Approved
+Diploma,5.9,3.0,0,0,None,4,4,Poor,TestingEng,NeedsImprovement
+UG,8.0,7.0,3,2,One,7,8,Good,SoftwareDev,Approved
+UG,7.0,5.5,2,1,None,5,6,Average,WebDev,NeedsImprovement

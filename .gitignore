@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Flask / runtime
+instance/
+*.sqlite3
+*.db
+flask_session/
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# Uploads (user-uploaded resumes)
+static/uploads/
+uploads/
+
+# Byte-compiled
+*.pyc

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Resume Screening & Job Fit Analyzer | GRIET DS 2025-26</title>
+  <meta name="description" content="AI-powered resume screening and job fit analysis system using WEKA Naive Bayes — Department of Data Science, GRIET Hyderabad." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <!-- ── PARTICLES BG ─────────────────────────────── -->
+  <div id="particles" class="particles-bg" aria-hidden="true"></div>
+
+  <!-- ── NAV ─────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-text">ResumeAI</span>
+        <span class="brand-badge">GRIET DS</span>
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link active" id="nav-home">Home</a>
+        <a href="/dashboard" class="nav-link" id="nav-dashboard">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge animate-fadeup">
+        <span class="badge-dot"></span>
+        Academic Project · Data Science · GRIET 2025-26
+      </div>
+      <h1 class="hero-title animate-fadeup delay-1">
+        AI-Based Resume Screening<br />
+        <span class="gradient-text">&amp; Job Fit Analyzer</span>
+      </h1>
+      <p class="hero-sub animate-fadeup delay-2">
+        Department of Data Science &nbsp;|&nbsp; GRIET Hyderabad &nbsp;|&nbsp; 2025-26
+      </p>
+
+      <!-- Team -->
+      <div class="team-strip animate-fadeup delay-3">
+        <div class="team-member">
+          <div class="member-avatar">NS</div>
+          <div class="member-info">
+            <span class="member-name">Nihal S</span>
+            <span class="member-roll">Team Lead</span>
+          </div>
+        </div>
+        <div class="team-divider"></div>
+        <div class="team-member">
+          <div class="member-avatar">PR</div>
+          <div class="member-info">
+            <span class="member-name">Priya R</span>
+            <span class="member-roll">ML Engineer</span>
+          </div>
+        </div>
+        <div class="team-divider"></div>
+        <div class="team-member">
+          <div class="member-avatar">AK</div>
+          <div class="member-info">
+            <span class="member-name">Arjun K</span>
+            <span class="member-roll">Backend Dev</span>
+          </div>
+        </div>
+        <div class="team-divider"></div>
+        <div class="team-member">
+          <div class="member-avatar">SM</div>
+          <div class="member-info">
+            <span class="member-name">Sneha M</span>
+            <span class="member-roll">UI Designer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model badges -->
+      <div class="model-badges animate-fadeup delay-4">
+        <span class="mbadge best">🏆 Naive Bayes — 87.3%</span>
+        <span class="mbadge">🌲 Random Forest — 85.1%</span>
+        <span class="mbadge">🌿 J48 Tree — 83.6%</span>
+        <span class="mbadge muted">📊 ZeroR — 58.4%</span>
+        <span class="mbadge info">🔁 10-Fold CV</span>
+      </div>
+
+      <a href="#form-section" class="hero-cta animate-fadeup delay-5">
+        Start Analysis <span class="cta-arrow">↓</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FORM ──────────────────────────────────────── -->
+  <main class="form-wrapper" id="form-section">
+    <form id="analyzeForm" novalidate>
+
+      <!-- PROGRESS -->
+      <div class="form-progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">0% complete</span>
+      </div>
+
+      <!-- ── SECTION 1: Technical Skills ─────────────── -->
+      <div class="form-card animate-card" id="card-skills">
+        <div class="card-header">
+          <div class="card-icon-wrap purple">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Technical Skills</h2>
+            <p class="card-sub">Select all technologies you know well</p>
+          </div>
+          <div class="skill-score-badge" id="skillScoreBadge">
+            <span id="skillScoreValue">0</span><span>/10</span>
+          </div>
+        </div>
+
+        <div class="skill-chips-grid" id="skillChips">
+          <button type="button" class="skill-chip" data-skill="Python">🐍 Python</button>
+          <button type="button" class="skill-chip" data-skill="Java">☕ Java</button>
+          <button type="button" class="skill-chip" data-skill="C/C++">⚙️ C / C++</button>
+          <button type="button" class="skill-chip" data-skill="JavaScript">🟨 JavaScript</button>
+          <button type="button" class="skill-chip" data-skill="SQL">🗄️ SQL</button>
+          <button type="button" class="skill-chip" data-skill="Machine Learning">🤖 Machine Learning</button>
+          <button type="button" class="skill-chip" data-skill="Deep Learning">🧠 Deep Learning</button>
+          <button type="button" class="skill-chip" data-skill="Data Analysis">📊 Data Analysis</button>
+          <button type="button" class="skill-chip" data-skill="React/Vue">⚛️ React / Vue</button>
+          <button type="button" class="skill-chip" data-skill="Cloud">☁️ Cloud</button>
+          <button type="button" class="skill-chip" data-skill="Docker">🐳 Docker</button>
+          <button type="button" class="skill-chip" data-skill="NLP/LLMs">💬 NLP / LLMs</button>
+          <button type="button" class="skill-chip" data-skill="Computer Vision">👁️ Computer Vision</button>
+          <button type="button" class="skill-chip" data-skill="HTML/CSS">🎨 HTML / CSS</button>
+          <button type="button" class="skill-chip" data-skill="Git/GitHub">🐙 Git / GitHub</button>
+          <button type="button" class="skill-chip" data-skill="Excel">📑 Excel</button>
+          <button type="button" class="skill-chip" data-skill="Power BI">📈 Power BI</button>
+        </div>
+
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-track">
+            <div class="skill-bar-fill" id="skillBarFill"></div>
+          </div>
+          <p class="skill-hint" id="skillHint">Select skills to calculate your score</p>
+        </div>
+      </div>
+
+      <!-- ── SECTION 2: Academic Profile ─────────────── -->
+      <div class="form-card animate-card" id="card-academic">
+        <div class="card-header">
+          <div class="card-icon-wrap blue">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-7-3.5l7 3.5 7-3.5"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Academic Profile</h2>
+            <p class="card-sub">Your educational background & achievements</p>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <!-- Education -->
+          <div class="form-field">
+            <label class="field-label" for="education">Education Level</label>
+            <select class="field-select" id="education" name="education">
+              <option value="UG">🎓 UG — B.Tech / B.E</option>
+              <option value="PG">🎓 PG — M.Tech / MCA</option>
+              <option value="Diploma">📜 Diploma</option>
+            </select>
+          </div>
+
+          <!-- Internships -->
+          <div class="form-field">
+            <label class="field-label" for="internships">Internship Experience</label>
+            <select class="field-select" id="internships" name="internships">
+              <option value="No Internship">❌ No Internship</option>
+              <option value="1 Internship">✅ 1 Internship</option>
+              <option value="2+ Internships">🏆 2+ Internships</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CGPA Slider -->
+        <div class="form-field mt-4">
+          <label class="field-label" for="cgpa">
+            CGPA &nbsp;<span class="slider-value" id="cgpaDisplay">7.0</span> / 10
+          </label>
+          <div class="slider-wrap">
+            <span class="slider-min">5.0</span>
+            <input type="range" class="custom-slider" id="cgpa" name="cgpa"
+                   min="5" max="10" step="0.1" value="7.0" />
+            <span class="slider-max">10.0</span>
+          </div>
+          <div class="slider-track-labels">
+            <span>Below Average</span><span>Average</span><span>Good</span><span>Excellent</span>
+          </div>
+        </div>
+
+        <!-- Projects Slider -->
+        <div class="form-field">
+          <label class="field-label" for="projects">
+            Number of Projects &nbsp;<span class="slider-value" id="projectsDisplay">0</span>
+          </label>
+          <div class="slider-wrap">
+            <span class="slider-min">0</span>
+            <input type="range" class="custom-slider" id="projects" name="projects"
+                   min="0" max="10" step="1" value="0" />
+            <span class="slider-max">10</span>
+          </div>
+        </div>
+
+        <!-- Certifications Slider -->
+        <div class="form-field">
+          <label class="field-label" for="certifications">
+            Certifications &nbsp;<span class="slider-value" id="certsDisplay">0</span>
+          </label>
+          <div class="slider-wrap">
+            <span class="slider-min">0</span>
+            <input type="range" class="custom-slider" id="certifications" name="certifications"
+                   min="0" max="10" step="1" value="0" />
+            <span class="slider-max">10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: Soft Skills ───────────────────── -->
+      <div class="form-card animate-card" id="card-soft">
+        <div class="card-header">
+          <div class="card-icon-wrap green">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Soft Skills</h2>
+            <p class="card-sub">Communication, aptitude & language proficiency</p>
+          </div>
+        </div>
+
+        <!-- Communication -->
+        <div class="form-field">
+          <label class="field-label" for="communication">
+            Communication Score &nbsp;<span class="slider-value" id="commDisplay">5</span> / 10
+          </label>
+          <div class="slider-wrap">
+            <span class="slider-min">1</span>
+            <input type="range" class="custom-slider green-slider" id="communication"
+                   name="communication" min="1" max="10" step="1" value="5" />
+            <span class="slider-max">10</span>
+          </div>
+          <div class="emoji-scale">
+            <span>😶</span><span>😐</span><span>🙂</span><span>😊</span><span>🌟</span>
+          </div>
+        </div>
+
+        <!-- Aptitude -->
+        <div class="form-field">
+          <label class="field-label" for="aptitude">
+            Aptitude Score &nbsp;<span class="slider-value" id="aptDisplay">5</span> / 10
+          </label>
+          <div class="slider-wrap">
+            <span class="slider-min">1</span>
+            <input type="range" class="custom-slider green-slider" id="aptitude"
+                   name="aptitude" min="1" max="10" step="1" value="5" />
+            <span class="slider-max">10</span>
+          </div>
+        </div>
+
+        <!-- English Fluency -->
+        <div class="form-field">
+          <label class="field-label" for="english_fluency">English Fluency</label>
+          <div class="fluency-options" id="fluencyOptions">
+            <label class="fluency-opt">
+              <input type="radio" name="english_fluency" value="Poor" />
+              <span class="fluency-label">😕 Poor</span>
+            </label>
+            <label class="fluency-opt">
+              <input type="radio" name="english_fluency" value="Average" checked />
+              <span class="fluency-label">😐 Average</span>
+            </label>
+            <label class="fluency-opt">
+              <input type="radio" name="english_fluency" value="Good" />
+              <span class="fluency-label">😊 Good</span>
+            </label>
+            <label class="fluency-opt">
+              <input type="radio" name="english_fluency" value="Excellent" />
+              <span class="fluency-label">🌟 Excellent</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECTION 4: Career Preference ────────────── -->
+      <div class="form-card animate-card" id="card-career">
+        <div class="card-header">
+          <div class="card-icon-wrap orange">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Career Preference</h2>
+            <p class="card-sub">Your target job domain</p>
+          </div>
+        </div>
+
+        <div class="domain-grid" id="domainGrid">
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="Software Developer" checked />
+            <div class="domain-inner">
+              <span class="domain-icon">💻</span>
+              <span class="domain-name">Software Developer</span>
+            </div>
+          </label>
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="Data Analyst" />
+            <div class="domain-inner">
+              <span class="domain-icon">📊</span>
+              <span class="domain-name">Data Analyst</span>
+            </div>
+          </label>
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="Web Developer" />
+            <div class="domain-inner">
+              <span class="domain-icon">🌐</span>
+              <span class="domain-name">Web Developer</span>
+            </div>
+          </label>
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="AI/ML Engineer" />
+            <div class="domain-inner">
+              <span class="domain-icon">🤖</span>
+              <span class="domain-name">AI/ML Engineer</span>
+            </div>
+          </label>
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="Testing Engineer" />
+            <div class="domain-inner">
+              <span class="domain-icon">🧪</span>
+              <span class="domain-name">Testing Engineer</span>
+            </div>
+          </label>
+          <label class="domain-card">
+            <input type="radio" name="preferred_domain" value="Cloud Engineer" />
+            <div class="domain-inner">
+              <span class="domain-icon">☁️</span>
+              <span class="domain-name">Cloud Engineer</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- ── SECTION 5: Resume Upload ──────────────────── -->
+      <div class="form-card animate-card" id="card-upload">
+        <div class="card-header">
+          <div class="card-icon-wrap pink">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <div>
+            <h2 class="card-title">Upload Resume <span class="optional-tag">Optional</span></h2>
+            <p class="card-sub">PDF only — not required for prediction</p>
+          </div>
+        </div>
+
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">📄</div>
+          <p class="upload-text">Drag & drop your resume PDF here</p>
+          <p class="upload-sub">or</p>
+          <label class="upload-btn" for="resumeFile">Browse File</label>
+          <input type="file" id="resumeFile" accept=".pdf" hidden />
+          <p class="upload-filename" id="uploadFilename"></p>
+        </div>
+      </div>
+
+      <!-- ── ANALYZE BUTTON ────────────────────────────── -->
+      <div class="analyze-btn-wrap">
+        <button type="submit" class="analyze-btn" id="analyzeBtn">
+          <span class="btn-icon">🧠</span>
+          <span class="btn-text">Analyze My Resume</span>
+          <span class="btn-arrow">→</span>
+        </button>
+        <p class="analyze-hint">Powered by WEKA Naive Bayes · 87.3% Accuracy · 10-Fold CV</p>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- ── LOADING OVERLAY ───────────────────────────── -->
+  <div class="loading-overlay" id="loadingOverlay" hidden>
+    <div class="loading-box">
+      <div class="loader-ring"></div>
+      <p class="loading-title">Analyzing your profile…</p>
+      <p class="loading-sub" id="loadingStep">Running Naive Bayes classifier…</p>
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>AI-Based Resume Screening &amp; Job Fit Analyzer &nbsp;·&nbsp; Department of Data Science &nbsp;·&nbsp; GRIET Hyderabad &nbsp;·&nbsp; 2025-26</p>
+    <p class="footer-tech">Built with Flask · WEKA · Naive Bayes · 10-Fold Cross Validation</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
